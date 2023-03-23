@@ -1,0 +1,20 @@
+mariadb:
+  architecture: standalone
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+    resources:
+      requests:
+        cpu: "200m"
+        memory: 200Mi
+
+  primary:
+    resources:
+      requests:
+        cpu: "1"
+        memory: 500Mi
+    persistence:
+      storageClass: px-db-high
+      size: 1Gi
+
