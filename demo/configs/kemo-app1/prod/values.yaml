@@ -1,0 +1,92 @@
+
+# 
+secrets:
+  docker: "foo"
+
+# app
+wordpressUsername: app1
+wordpressPassword: "app1p@i%22323ex"
+
+# smtp settings
+smtpHost: "smtp.mandrillapp.com"
+smtpPort: "587"
+smtpUser: "app1@app1.com"
+smtpPassword: "app1p@KPelNtA"
+
+
+extraEnvVars:
+  - name: kemooo
+    value: kemoooapp1
+  - name: CLIENT_NAME
+    value: app1
+  - name: AWS_S3_BUCKET
+    value: app1
+  - name: AWS_ACCESS_KEY_ID
+    value: app1
+  - name: AWS_SECRET_ACCESS_KEY
+    value: app1
+  - name: DB_ROOT_PASS
+    value: app1@d24e7f
+  - name: DB_HOST
+    value: app1-mariadb
+  - name: DB_NAME
+    value: app1
+  - name: DB_PASS
+    value: app1@3e5F0f
+  - name: DB_USER
+    value: app1
+
+#
+persistence:
+  accessModes:
+    - ReadWriteMany
+
+ingress:
+  enabled: true
+  tls: true
+  className: nginx
+  pathType: ImplementationSpecific
+  hostname: app1.mnmedya.com
+  path: /
+  annotations: 
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/proxy-buffer-size: 32k
+    nginx.ingress.kubernetes.io/proxy-buffers-number: "128"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "86400"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "86400"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "86400"
+    nginx.ingress.kubernetes.io/proxy-body-size: 100m
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+  extraTls:
+  - hosts:
+      - "*.mnmedya.com"
+
+########
+
+mariadb:
+  architecture: standalone
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+    resources:
+      requests:
+        cpu: "200m"
+        memory: 200Mi
+
+  primary:
+    resources:
+      requests:
+        cpu: "1"
+        memory: 500Mi
+    persistence:
+      storageClass: px-db-high
+      size: 1Gi
+
+  auth:
+    rootPassword: "app1@d24e7f"
+    database: app1
+    username: app1
+    password: "app1@3e5F0f"
+
+
